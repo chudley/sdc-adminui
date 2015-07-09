@@ -37,6 +37,9 @@ var Rootnav = React.createClass({
     },
 
     _clickedMenuItem: function(e) {
+        if (e.metaKey || e.ctrlKey) {
+            return;
+        }
         e.preventDefault();
         var view = e.currentTarget.getAttribute('data-view') ;
         var component = e.currentTarget.getAttribute('data-component');
