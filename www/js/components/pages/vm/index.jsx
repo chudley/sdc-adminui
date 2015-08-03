@@ -109,6 +109,13 @@ var VMPage = React.createClass({
         var pkg = this.state.package;
         var vm = this.state.vm;
 
+        server.admin_ip = "";
+        Object.keys(server.sysinfo["Network Interfaces"]).forEach(function(nic){
+          if(server.sysinfo["Network Interfaces"][nic]["NIC Names"].indexOf("admin") != -1){
+            server.admin_ip = server.sysinfo["Network Interfaces"][nic].ip4addr;
+          }
+        });
+
         var quota = 0;
         if (vm.brand === 'kvm') {
             vm.disks.forEach(function(k) {
@@ -239,10 +246,16 @@ var VMPage = React.createClass({
                     <tr>
                       <th>Server</th>
                       <td>
-                        <a href={'/servers/'+server.uuid} onClick={function(e) {
+
+                        <div className="server-information">
+                          <a href={'/servers/'+server.uuid} onClick={function(e) {
                             e.preventDefault();
                             adminui.router.showServer(vm.server_uuid);
-                        }} className="server-hostname">{server.hostname}</a>
+                          }} className="server-hostname">{server.hostname}</a>
+                          <span className="details">
+                            <span className="selectable">{server.admin_ip}</span>
+                          </span>
+                        </div>
                         <span className="server-uuid selectable">{vm.server_uuid}</span>
                       </td>
                     </tr>
