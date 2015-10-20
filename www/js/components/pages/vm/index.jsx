@@ -271,6 +271,19 @@ var VMPage = React.createClass({
                           </td>
                         </tr>
                     :null}
+                    {vm.brand === 'kvm' ?
+                      <tr>
+                        <th>VNC</th>
+                        <td className="kvm-vnc">
+                          <div className="kvm-vnc">
+                            VNC
+                            <span className="details">
+                              info
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    :null}
                     <tr>
                       <th>Created</th>
                       <td>
